@@ -1,0 +1,136 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="ass.css">
+</head>
+
+<body class="border">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <form name="form" onsubmit="return validateform()">
+
+        <center>
+            <h2>Sign Up</h2>
+        </center>
+        <div class="form-group">
+            <label for="un">User Name</label>
+            <input type="text" id="un" name="un" class="form-control">
+            <span id="une" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="em">E-Mail</label>
+            <input type="email" id="em" name="em" class="form-control">
+            <span id="eme" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="pw">Password:</label>
+            <input type="password" name="pw" id="pw" placeholder="*****" class="form-control" />
+            <span id="pwe" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="cpw">Confirm Password</label>
+            <input type="password" id="cpw" name="cpw" class="form-control">
+            <span id="cpwe" class="text-danger"></span>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-default"> submit</button>
+
+        </div>
+    </form>
+</body>
+<script>
+    function validateform() {
+        var un = document.form.un.value;
+        var em = document.form.em.value;
+        var pword = document.form.pw.value;
+        var cpword = document.form.cpw.value;
+        const pattern = /^ ( ? = .[A - Z])( ? = .[a - z])( ? = .[!@# $ & ])( ? = .[0 - 9])( ? = . {7,})/;
+
+        //var sym=/^( ? = .*[!@# $ & ])/;
+        if (((un.length <= 3) || (un.length >= 25)) && (em.length <= 0) && (pword.length <= 0) && (cpword.length <= 0)) {
+            document.getElementById("une").innerHTML = "user name must be between 3 and 25 characters";
+            document.getElementById("eme").innerHTML = "email id is required";
+            document.getElementById('pwe').innerHTML = "Password is required.Min 8 character & Max 15 character. Password must contain at least one small & one capital alphabet and numeric digit.";
+            document.getElementById('cpwe').innerHTML = "Retype your password"
+        }
+        if (un.length <= 3) {
+            document.getElementById("une").innerHTML = "user name must be between 3 and 25 characters";
+            return false;
+        }
+        if (un.length >= 25) {
+            document.getElementById("une").innerHTML = "user name must be between 3 and 25 characters";
+            return false;
+        }
+        if (em.length <= 0) {
+            document.getElementById("eme").innerHTML = "email id is required";
+            document.getElementById("une").innerHTML = "";
+            return false;
+        }
+
+        if (pword.length <= 0) {
+            document.getElementById('pwe').innerHTML = "Password is required.Min 8 character & Max 15 character. Password must contain at least one small & one capital alphabet and numeric digit.";
+            document.getElementById("eme").innerHTML = "";
+            return false;
+        }
+        if (!pattern.test(pword)) {
+            if (!/(?=.*[A-Z])/.test(pword)) {
+                document.getElementById('pwe').innerHTML = 'password must contain atleast UpperCase';
+                return false;
+            }
+            if (!/(?=.*[a-z])/.test(pword)) {
+                document.getElementById('pwe').innerHTML = 'password must contain atleast one LowerCase ';
+                return false;
+            }
+
+            if (!/(?=.*[!@#$%^&*])/.test(pword)) {
+                document.getElementById('pwe').innerHTML = "password must contain atleast one special character";
+                return false;
+            }
+            if (!/(?=.*[0-9])/.test(pword)) {
+                document.getElementById('pwe').innerHTML = 'password must contain at least one digit';
+                return false;
+            }
+            if (!/(?=.{8,})/.test(pword)) {
+                document.getElementById('pwe').innerHTML = 'password must have atleast 8 characters';
+                return false;
+            }
+        }
+        if (cpword <= 0) 
+            {
+                document.getElementById("cpwe").innerHTML = "Retype your password";
+                document.getElementById('pwe').innerHTML = '';
+                return false;
+            }
+        if (cpword != pword) {
+                document.getElementById("cpwe").innerHTML = "password doesnot match";
+
+                return false;
+            }
+
+
+
+        
+    }
+</script>
+
+</html>
