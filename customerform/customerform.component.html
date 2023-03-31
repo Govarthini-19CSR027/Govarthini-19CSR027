@@ -1,0 +1,64 @@
+
+<div class="container">
+    <h2>CUSTOMER INFORMATION</h2>
+    <div class="register-form">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="cmpname">Company name</label>
+                <input type="text" formControlName="cmpname" class="form-control" [ngClass]="{ 'is-invalid':submitted && f['cmpname'].errors}">
+                <div *ngIf="submitted && f['cmpname'].errors" >
+                    <div *ngIf="f['cmpname'].errors['required']" class="text-danger">Company Name is required</div>
+                    <div *ngIf="f['cmpname'].errors['minlength']" class="text-danger">Company Name must be atleast 4 characters</div>
+                    <div *ngIf="f['cmpname'].errors['maxlength']" class="text-danger">Company Name must not exceed 40 characters</div>
+                </div>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid':submitted && f['email'].errors}">
+                <div *ngIf="submitted && f['email'].errors" >
+                    <div *ngIf="f['email'].errors['required']" class="text-danger">Email is required</div>
+                    <div *ngIf="f['email'].errors['email']" class="text-danger">Email should be valid </div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="phone">Phone number</label>
+                <input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid':submitted && f['phone'].errors}">
+                <div *ngIf="submitted && f['phone'].errors" >
+                    <div *ngIf="f['phone'].errors['required']" class="text-danger">Phone number is required</div>
+                    <div *ngIf="f['phone'].errors['minlength']" class="text-danger">Phoneno should contain only 10 digit</div>
+                    <div *ngIf="f['phone'].errors['maxlength']" class="text-danger">Phoneno should contain only 10 digit</div>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="machine">Machine Type</label>&nbsp;&nbsp;
+                <button type="button" class="addbutton" (click)="add()" class="btn btn-primary">+</button><br><br>
+            </div>
+            <ng-container *ngFor="let skillForm of skillsForms.controls;let i=index">
+                <div class="form-group">
+                    <select class="form-select" class="items" id="validationDefault04" required>
+                    <option>Scissor lift</option>
+                    <option>Welding machine.</option>
+                    <option>Drill press</option>
+                    <option>Planer Machine</option>
+                    <option>Hobbing Machines</option> 
+                  </select><br>
+                    <label [for]="'Amount'+i" class="form-label">Amount</label><br>
+                    <input type="number" class="form-control" id="'Amount'+i" formControlName="Amount">
+                    <div *ngIf="submitted && f['Amount'].errors">
+                        <div *ngIf="f['Amount'].errors['required']" class="text-danger">Amount is required</div>
+                        <div *ngIf="f['Amount'].errors['minValue']" class="text-danger">Amount Should be positive number </div>
+                    </div>
+                </div><br>
+                <div>
+                    <button class="btn btn-danger" type="button" (click)="remove(i)">Delete</button>
+                </div><br>
+            </ng-container>
+            <button type="submit" class="submit">Place Order</button>
+
+        </form>
+    </div>
+</div>
